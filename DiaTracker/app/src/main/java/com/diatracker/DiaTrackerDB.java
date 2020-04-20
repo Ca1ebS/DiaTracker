@@ -162,8 +162,19 @@ public class DiaTrackerDB {
 
     //region App Statements
 
+    // this method will drop and re-create the tables, clearing any data stored
     public void clearDB() {
-
+        try {
+            db.execSQL(DiaTrackerDB.DROP_DIETARY_TABLE);
+            db.execSQL(DiaTrackerDB.DROP_GLUCOSE_TABLE);
+            db.execSQL(DiaTrackerDB.DROP_INSULIN_TABLE);
+            db.execSQL(DiaTrackerDB.CREATE_DIETARY_TABLE);
+            db.execSQL(DiaTrackerDB.CREATE_GLUCOSE_TABLE);
+            db.execSQL(DiaTrackerDB.CREATE_INSULIN_TABLE);
+        }
+        catch {
+            Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
+        }
     }
 
     // this method will make a copy of the database to a csv file in the download folder
@@ -179,15 +190,37 @@ public class DiaTrackerDB {
         File file = new File(exportDir, "diatracker.csv");
         try
         {
+            // Repeating code due to three different table structures
+            // Most likely a better way to do this, plan to clean up later
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            // dietary table write to csv
             Cursor curCSV = db.rawQuery("SELECT * FROM " + DIETARY_TABLE,null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while(curCSV.moveToNext())
             {
-                //Which column you want to export
                 String arrStr[] ={curCSV.getString(DIET_ID_COL),curCSV.getString(DIET_DATE_COL), curCSV.getString(CARBS_COL),
                         curCSV.getString(CALORIES_COL),curCSV.getString(SUGAR_COL)};
+                csvWrite.writeNext(arrStr);
+            }
+            csvWrite.close();
+
+            // glucose table write to csv
+            curCSV = db.raqQuery("SELECT * FROM " + GLUCOSE_TABLE,null);
+            csvWrite.writeNext(curCSV.getColumnNames());
+            while(curCSV.moveToNext())
+            {
+                String arrStr[] ={curCSV.getString(GLUC_ID),curCSV.getString(GLUC_DATE), curCSV.getString(LEVEL)};
+                csvWrite.writeNext(arrStr);
+            }
+            csvWrite.close();
+
+            // insulin table write to csv
+            curCSV = db.raqQuery("SELECT * FROM " + INSULIN_TABLE,null);
+            csvWrite.writeNext(curCSV.getColumnNames());
+            while(curCSV.moveToNext())
+            {
+                String arrStr[] ={curCSV.getString(INSU_ID),curCSV.getString(INSU_DATE), curCSV.getString(INSU_IN)};
                 csvWrite.writeNext(arrStr);
             }
             csvWrite.close();
@@ -197,6 +230,42 @@ public class DiaTrackerDB {
         {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
         }
+    }
+
+    // create an entry in the Dietary table
+    public boolean createDiet(int cal, int carb, int sug) {
+        boolean success = 'false';
+        try {
+            success = 'true';
+        }
+        catch {
+            Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
+        }
+        return success;
+    }
+
+    // create an entry in the Glucose Table
+    public boolean createDiet(int level) {
+        boolean success = 'false';
+        try {
+            success = 'true';
+        }
+        catch {
+            Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
+        }
+        return success;
+    }
+
+    // create an entry in the Insulin Table
+    public boolean createDiet(int injection) {
+        boolean success = 'false';
+        try {
+            success = 'true';
+        }
+        catch {
+            Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
+        }
+        return success;
     }
 
     //endregion

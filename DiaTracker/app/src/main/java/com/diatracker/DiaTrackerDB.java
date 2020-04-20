@@ -164,6 +164,7 @@ public class DiaTrackerDB {
 
     // this method will drop and re-create the tables, clearing any data stored
     public void clearDB() {
+        this.openWriteableDB();
         try {
             db.execSQL(DiaTrackerDB.DROP_DIETARY_TABLE);
             db.execSQL(DiaTrackerDB.DROP_GLUCOSE_TABLE);
@@ -234,9 +235,18 @@ public class DiaTrackerDB {
 
     // create an entry in the Dietary table
     public boolean createDiet(int cal, int carb, int sug) {
+        this.openWriteableDB();
         boolean success = 'false';
         try {
-            success = 'true';
+            ContentValues cv = new ContentValues();
+            values.put(FeedEntry.DIET_DATE, System.currentTimeMillis());
+            values.put(FeedEntry.CARBS, carb);
+            values.put(FeedEntry.CALORIES, cal);
+            values.put(FeedEntry.SUGAR, sug)
+            long newRowId = db.insert(FeedEntry.DIET_TABLE, null, values);
+            if (newRowId > -1) {
+                success = 'true';
+            }
         }
         catch {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
@@ -245,10 +255,17 @@ public class DiaTrackerDB {
     }
 
     // create an entry in the Glucose Table
-    public boolean createDiet(int level) {
+    public boolean createGlucose(int level) {
+        this.openWriteableDB();
         boolean success = 'false';
         try {
-            success = 'true';
+            ContentValues cv = new ContentValues();
+            values.put(FeedEntry.GLUC_DATE, System.currentTimeMillis());
+            values.put(FeedEntry.LEVEL, level);
+            long newRowId = db.insert(FeedEntry.GLUCOSE_TABLE, null, values);
+            if (newRowId > -1) {
+                success = 'true';
+            }
         }
         catch {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
@@ -257,10 +274,17 @@ public class DiaTrackerDB {
     }
 
     // create an entry in the Insulin Table
-    public boolean createDiet(int injection) {
+    public boolean createInsulin(int injection) {
+        this.openWriteableDB();
         boolean success = 'false';
         try {
-            success = 'true';
+            ContentValues cv = new ContentValues();
+            values.put(FeedEntry.INSU_DATE, System.currentTimeMillis());
+            values.put(FeedEntry.INSU_IN, injection);
+            long newRowId = db.insert(FeedEntry.INSULIN_TABLE, null, values);
+            if (newRowId > -1) {
+                success = 'true';
+            }
         }
         catch {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);

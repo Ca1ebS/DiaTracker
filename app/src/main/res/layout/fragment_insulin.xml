@@ -6,88 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.insulin.InsulinFragment">
 
-    <EditText
-        android:id="@+id/editSugar"
-        android:layout_width="297dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="Sugar Intake"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3" />
-
     <TextView
-        android:id="@+id/textSugar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/editSugar" />
-
-    <TextView
-        android:id="@+id/textDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/glucoseUndo"
-        android:layout_width="87dp"
+        android:id="@+id/text_insulin"
+        android:layout_width="186dp"
         android:layout_height="45dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="Undo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseSubmit" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Total Sugar: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSugar" />
-
-    <TextView
-        android:id="@+id/text_dietary2"
-        android:layout_width="163dp"
-        android:layout_height="42dp"
-        android:text="Insulin Entry"
+        android:text="Glucose Entry"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="409dp"
-        android:layout_height="5dp"
-        android:layout_marginTop="5dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="#000000"
-        android:outlineAmbientShadowColor="#000000"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_dietary2" />
-
-    <Button
-        android:id="@+id/glucoseSubmit"
-        android:layout_width="87dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="Submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

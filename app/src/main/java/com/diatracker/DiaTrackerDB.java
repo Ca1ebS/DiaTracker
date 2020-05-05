@@ -15,7 +15,7 @@ import android.database.Cursor;
 
 import com.opencsv.CSVWriter;
 
-/*public class DiaTrackerDB {
+public class DiaTrackerDB {
     //region DB Constants
     // creating the db constants
     public static final String DB_NAME = "diatracker.db";
@@ -173,7 +173,7 @@ import com.opencsv.CSVWriter;
             db.execSQL(DiaTrackerDB.CREATE_GLUCOSE_TABLE);
             db.execSQL(DiaTrackerDB.CREATE_INSULIN_TABLE);
         }
-        catch {
+        catch(Exception sqlEx) {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
         }
     }
@@ -207,21 +207,21 @@ import com.opencsv.CSVWriter;
             csvWrite.close();
 
             // glucose table write to csv
-            curCSV = db.raqQuery("SELECT * FROM " + GLUCOSE_TABLE,null);
+            curCSV = db.rawQuery("SELECT * FROM " + GLUCOSE_TABLE,null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while(curCSV.moveToNext())
             {
-                String arrStr[] ={curCSV.getString(GLUC_ID),curCSV.getString(GLUC_DATE), curCSV.getString(LEVEL)};
+                String arrStr[] ={curCSV.getString(GLUC_ID_COL),curCSV.getString(GLUC_DATE_COL), curCSV.getString(LEVEL_COL)};
                 csvWrite.writeNext(arrStr);
             }
             csvWrite.close();
 
             // insulin table write to csv
-            curCSV = db.raqQuery("SELECT * FROM " + INSULIN_TABLE,null);
+            curCSV = db.rawQuery("SELECT * FROM " + INSULIN_TABLE,null);
             csvWrite.writeNext(curCSV.getColumnNames());
             while(curCSV.moveToNext())
             {
-                String arrStr[] ={curCSV.getString(INSU_ID),curCSV.getString(INSU_DATE), curCSV.getString(INSU_IN)};
+                String arrStr[] ={curCSV.getString(INSU_ID_COL),curCSV.getString(INSU_DATE_COL), curCSV.getString(INSU_IN_COL)};
                 csvWrite.writeNext(arrStr);
             }
             csvWrite.close();
@@ -236,19 +236,19 @@ import com.opencsv.CSVWriter;
     // create an entry in the Dietary table
     public boolean createDiet(int cal, int carb, int sug) {
         this.openWriteableDB();
-        boolean success = 'false';
+        boolean success = false;
         try {
             ContentValues cv = new ContentValues();
-            values.put(FeedEntry.DIET_DATE, System.currentTimeMillis());
-            values.put(FeedEntry.CARBS, carb);
-            values.put(FeedEntry.CALORIES, cal);
-            values.put(FeedEntry.SUGAR, sug)
-            long newRowId = db.insert(FeedEntry.DIET_TABLE, null, values);
+            cv.put(DIET_DATE, System.currentTimeMillis());
+            cv.put(CARBS, carb);
+            cv.put(CALORIES, cal);
+            cv.put(SUGAR, sug);
+            long newRowId = db.insert(DIETARY_TABLE, null, cv);
             if (newRowId > -1) {
-                success = 'true';
+                success = true;
             }
         }
-        catch {
+        catch(Exception sqlEx) {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
         }
         return success;
@@ -257,17 +257,17 @@ import com.opencsv.CSVWriter;
     // create an entry in the Glucose Table
     public boolean createGlucose(int level) {
         this.openWriteableDB();
-        boolean success = 'false';
+        boolean success = false;
         try {
             ContentValues cv = new ContentValues();
-            values.put(FeedEntry.GLUC_DATE, System.currentTimeMillis());
-            values.put(FeedEntry.LEVEL, level);
-            long newRowId = db.insert(FeedEntry.GLUCOSE_TABLE, null, values);
+            cv.put(GLUC_DATE, System.currentTimeMillis());
+            cv.put(LEVEL, level);
+            long newRowId = db.insert(GLUCOSE_TABLE, null, cv);
             if (newRowId > -1) {
-                success = 'true';
+                success = true;
             }
         }
-        catch {
+        catch(Exception sqlEx) {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
         }
         return success;
@@ -276,21 +276,21 @@ import com.opencsv.CSVWriter;
     // create an entry in the Insulin Table
     public boolean createInsulin(int injection) {
         this.openWriteableDB();
-        boolean success = 'false';
+        boolean success = false;
         try {
             ContentValues cv = new ContentValues();
-            values.put(FeedEntry.INSU_DATE, System.currentTimeMillis());
-            values.put(FeedEntry.INSU_IN, injection);
-            long newRowId = db.insert(FeedEntry.INSULIN_TABLE, null, values);
+            cv.put(INSU_DATE, System.currentTimeMillis());
+            cv.put(INSU_IN, injection);
+            long newRowId = db.insert(INSULIN_TABLE, null, cv);
             if (newRowId > -1) {
-                success = 'true';
+                success = true;
             }
         }
-        catch {
+        catch(Exception sqlEx) {
             Log.e("DiaTrackerDB", sqlEx.getMessage(), sqlEx);
         }
         return success;
     }
 
     //endregion
-}*/
+}

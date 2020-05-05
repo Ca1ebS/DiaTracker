@@ -17,13 +17,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.diatracker.DiaTrackerDB;
+import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
 
-public class GlucoseFragment extends Fragment
-    implements OnClickListener {
+public class GlucoseFragment extends Fragment implements OnClickListener {
     private GlucoseViewModel glucoseViewModel;
     private Button submitButton;
     private EditText sugarLevel;
+    private TextView date;
     private int enteredLevel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,6 +35,8 @@ public class GlucoseFragment extends Fragment
         final TextView textView = root.findViewById(R.id.text_glucose);
         submitButton = (Button) root.findViewById(R.id.glucoseSubmit);
         sugarLevel = (EditText) root.findViewById(R.id.editSugar);
+        date = (TextView) root.findViewById(R.id.textDate);
+        date.setText(DiaTrackerMain.getDateStr());
         submitButton.setOnClickListener(this);
         glucoseViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

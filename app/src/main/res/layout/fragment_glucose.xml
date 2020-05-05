@@ -59,7 +59,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="Sugar Intake"
+        android:hint="@string/sugar_input"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/glucoseSubmit"
         app:layout_constraintHorizontal_bias="0.0"

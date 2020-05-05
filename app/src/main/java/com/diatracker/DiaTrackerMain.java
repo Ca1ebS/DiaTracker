@@ -16,6 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DiaTrackerMain extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -59,5 +62,12 @@ public class DiaTrackerMain extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static String getDateStr() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String dateStr = dateFormat.format(date);
+        return dateStr;
     }
 }

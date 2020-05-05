@@ -8,10 +8,7 @@ public class InsulinViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public InsulinViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is insulin fragment");
-    }
+    public InsulinViewModel() { mText = new MutableLiveData<>(); }
 
     public LiveData<String> getText() {
         return mText;

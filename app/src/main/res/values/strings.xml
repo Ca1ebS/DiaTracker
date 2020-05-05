@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DiaTracker</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">DiaTracker</string>
+    <string name="nav_header_subtitle">Group 6</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Dietary Info</string>
+    <string name="menu_gallery">Glucose Level</string>
+    <string name="menu_slideshow">Insulin Injection</string>
+
+    <string name="home_second">Home Second</string>
+</resources>

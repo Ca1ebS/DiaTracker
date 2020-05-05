@@ -40,4 +40,10 @@
         android:name="com.diatracker.ui.insulin.InsulinFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_insulin" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.diatracker.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

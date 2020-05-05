@@ -4,27 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.insulin.InsulinFragment">
+    tools:context=".ui.settings.SettingsFragment">
 
     <View
-        android:id="@+id/divider2"
+        android:id="@+id/divider4"
         android:layout_width="409dp"
         android:layout_height="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="#000000"
         android:outlineAmbientShadowColor="#000000"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_insulin" />
+        app:layout_constraintTop_toBottomOf="@+id/text_settings" />
+
+    <Button
+        android:id="@+id/buttonExport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Export Database to File"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
     <TextView
-        android:id="@+id/text_insulin"
-        android:layout_width="214dp"
-        android:layout_height="43dp"
+        android:id="@+id/text_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Insulin Injection"
+        android:text="Settings"
         android:textColor="#000000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,34 +43,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/buttonReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Submit"
+        android:text="Reset Database"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
-
-    <TextView
-        android:id="@+id/textDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="342dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="how often do you need insulin? (hours)"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonExport" />
 </androidx.constraintlayout.widget.ConstraintLayout>

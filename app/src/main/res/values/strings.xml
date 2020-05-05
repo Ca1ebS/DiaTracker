@@ -7,9 +7,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Dietary Info</string>
+    <string name="menu_home">Dietary Intake</string>
     <string name="menu_gallery">Glucose Level</string>
-    <string name="menu_slideshow">Insulin Injection</string>
+    <string name="menu_slideshow">Insulin Frequency</string>
+    <string name="menu_settings">Settings</string>
 
-    <string name="sugar_input">Sugar Level (mg/dL)</string>
+    <string name="sugar_input">Level (mg/dL)</string>
 </resources>

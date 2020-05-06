@@ -36,17 +36,17 @@
         android:id="@+id/glucoseSubmit"
         android:layout_width="87dp"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSugar" />
 
     <Button
         android:id="@+id/glucoseClear"
         android:layout_width="87dp"
         android:layout_height="45dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:text="Clear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,15 +54,13 @@
 
     <EditText
         android:id="@+id/editSugar"
-        android:layout_width="297dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="397dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/sugar_input"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/glucoseSubmit"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 

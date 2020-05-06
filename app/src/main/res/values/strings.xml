@@ -13,4 +13,9 @@
     <string name="menu_settings">Settings</string>
 
     <string name="sugar_input">Level (mg/dL)</string>
+
+    <string name="help_title">DiaTracker - Help</string>
+    <string name="help_message">This app is used to help users keep track of important health information. \n\n
+    You will enter daily food intake, blood sugar levels, and insulin injections. \n\n
+    The app will inform you and your doctor if you are not receiving the correct amounts. </string>
 </resources>

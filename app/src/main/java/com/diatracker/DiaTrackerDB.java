@@ -21,11 +21,6 @@ import androidx.core.app.ActivityCompat;
 import com.opencsv.CSVWriter;
 
 public class DiaTrackerDB {
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
     //region DB Constants
     // creating the db constants
     public static final String DB_NAME = "diatracker.db";
@@ -190,14 +185,6 @@ public class DiaTrackerDB {
 
     // this method will make a copy of the database to a csv file in the download folder
     public void exportDB() {
-        final int REQUEST_EXTERNAL_STORAGE = 1;
-        String[] PERMISSIONS_STORAGE = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-        // Check if we have write permission
-
-
         this.openReadableDB();
         File exportDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "");
         if (!exportDir.exists())

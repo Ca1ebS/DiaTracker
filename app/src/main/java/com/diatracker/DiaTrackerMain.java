@@ -44,7 +44,6 @@ public class DiaTrackerMain extends AppCompatActivity {
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

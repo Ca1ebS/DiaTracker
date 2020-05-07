@@ -60,14 +60,14 @@ public class SettingsFragment extends Fragment implements OnClickListener {
                 break;
         }
     }
-    private void reset(DiaTrackerDB db) {
+    private void reset(final DiaTrackerDB db) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.reset_message).setTitle("Database Clear");
         builder.setPositiveButton ("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Toast toast = Toast.makeText(getActivity(), "Database cleared",Toast.LENGTH_LONG);
                 toast.show();
-                //db.clearDB();
+                db.clearDB();
             }
         });
         builder.setNegativeButton ("Cancel", new DialogInterface.OnClickListener() {
@@ -82,6 +82,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
     private void export(DiaTrackerDB db) {
         Toast toast = Toast.makeText(getActivity(), "Database exported to device",Toast.LENGTH_LONG);
         toast.show();
-        //db.exportDB();
+        DiaTrackerMain.verifyStoragePermissions(getActivity());
+        db.exportDB();
     }
 }

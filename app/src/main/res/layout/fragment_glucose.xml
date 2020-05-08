@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/glucoseSubmit"
+        android:id="@+id/buttonSubmit"
         android:layout_width="87dp"
         android:layout_height="45dp"
         android:layout_marginTop="10dp"
@@ -43,20 +43,20 @@
         app:layout_constraintTop_toBottomOf="@+id/editSugar" />
 
     <Button
-        android:id="@+id/glucoseClear"
+        android:id="@+id/buttonClear"
         android:layout_width="87dp"
         android:layout_height="45dp"
         android:layout_marginTop="10dp"
         android:text="Clear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseSubmit" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmit" />
 
     <EditText
         android:id="@+id/editSugar"
         android:layout_width="355dp"
         android:layout_height="49dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_normal"
         android:ems="10"
         android:hint="@string/sugar_input"

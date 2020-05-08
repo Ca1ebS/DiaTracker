@@ -54,10 +54,9 @@ public class InsulinFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        DiaTrackerDB db = new DiaTrackerDB(getActivity());
         switch (v.getId()) {
             case R.id.buttonSubmit:
-                submit(db);
+                addInjection();
                 break;
             case R.id.buttonClear:
                 insulinLevel.setText("");
@@ -67,8 +66,9 @@ public class InsulinFragment extends Fragment implements OnClickListener {
         }
     }
 
-    private void submit(DiaTrackerDB db) {
+    private void addInjection() {
         if(!insulinLevel.getText().toString().isEmpty()) {
+            DiaTrackerDB db = new DiaTrackerDB(getActivity());
             int enteredLevel = Integer.parseInt(insulinLevel.getText().toString());
             Boolean success = db.createInsulin(enteredLevel);
             if (success) {

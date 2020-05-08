@@ -202,13 +202,15 @@ public class DiaTrackerDB {
             // dietary table write to csv
             Cursor curCSV = db.rawQuery("SELECT * FROM " + DIETARY_TABLE,null);
             csvWrite.writeNext(curCSV.getColumnNames());
+            System.out.println("test");
             while(curCSV.moveToNext())
             {
                 String arrStr[] ={curCSV.getString(DIET_ID_COL),curCSV.getString(DIET_DATE_COL), curCSV.getString(CARBS_COL),
                         curCSV.getString(CALORIES_COL),curCSV.getString(SUGAR_COL)};
+                System.out.println("test");
                 csvWrite.writeNext(arrStr);
             }
-            csvWrite.close();
+            //csvWrite.close();
 
             // glucose table write to csv
             curCSV = db.rawQuery("SELECT * FROM " + GLUCOSE_TABLE,null);
@@ -218,7 +220,7 @@ public class DiaTrackerDB {
                 String arrStr[] ={curCSV.getString(GLUC_ID_COL),curCSV.getString(GLUC_DATE_COL), curCSV.getString(LEVEL_COL)};
                 csvWrite.writeNext(arrStr);
             }
-            csvWrite.close();
+            //csvWrite.close();
 
             // insulin table write to csv
             curCSV = db.rawQuery("SELECT * FROM " + INSULIN_TABLE,null);

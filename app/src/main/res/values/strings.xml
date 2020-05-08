@@ -20,4 +20,6 @@
         The app will inform you and your doctor if you are not receiving the correct amounts. </string>
     <string name="reset_message">This will clear ALL previously saved data from your device. It cannot be recovered.\n\n
     Are you sure?</string>
+    <string name="high_message">Your blood sugar is high, please go see a doctor.</string>
+    <string name="low_message">Your blood sugar is low, please go see a doctor.</string>
 </resources>

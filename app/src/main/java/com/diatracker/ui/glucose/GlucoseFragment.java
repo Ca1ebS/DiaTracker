@@ -1,5 +1,7 @@
 package com.diatracker.ui.glucose;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,9 @@ import com.diatracker.R;
 
 public class GlucoseFragment extends Fragment implements OnClickListener {
     private GlucoseViewModel glucoseViewModel;
-    private Button submitButton;
+    private Button submit;
     private EditText sugarLevel;
+    private Button clear;
     private TextView date;
     private int enteredLevel;
 
@@ -33,11 +36,14 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
                 ViewModelProviders.of(this).get(GlucoseViewModel.class);
         View root = inflater.inflate(R.layout.fragment_glucose, container, false);
         final TextView textView = root.findViewById(R.id.text_glucose);
-        submitButton = (Button) root.findViewById(R.id.glucoseSubmit);
+        submit = (Button) root.findViewById(R.id.buttonSubmit);
+        clear = (Button) root.findViewById(R.id.buttonClear);
         sugarLevel = (EditText) root.findViewById(R.id.editSugar);
         date = (TextView) root.findViewById(R.id.textDate);
         date.setText(DiaTrackerMain.getDateStr());
-        submitButton.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        clear.setOnClickListener(this);
+
         glucoseViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -50,17 +56,37 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.glucoseSubmit:
-                AddSugar();
+            case R.id.buttonSubmit:
+                addSugar();
+                break;
+            case R.id.buttonClear:
+                sugarLevel.setText("");
                 break;
             default:
                 break;
         }
     }
 
-    public void AddSugar() {
+    public void addSugar() {
         if(!sugarLevel.getText().toString().isEmpty()) {
+            sugarLevel.setBackgroundResource(R.drawable.edit_normal);
             enteredLevel = Integer.parseInt(sugarLevel.getText().toString());
+
+            if(enteredLevel > 180 || enteredLevel < 70) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                if(enteredLevel > 180) builder.setMessage(R.string.high_message).setTitle("High Blood Sugar");
+                else builder.setMessage(R.string.low_message).setTitle("Low Blood Sugar");
+
+                builder.setPositiveButton ("Okay", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
             Boolean success = db.createGlucose(enteredLevel);
             if (success) {
@@ -71,7 +97,6 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
                 Toast toast = Toast.makeText(getActivity(), "There was an error", Toast.LENGTH_LONG);
                 toast.show();
             }
-            sugarLevel.setBackgroundResource(R.drawable.edit_normal);
         }
         else {
             sugarLevel.setError("Enter number");

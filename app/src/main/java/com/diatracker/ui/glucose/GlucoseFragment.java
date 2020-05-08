@@ -59,17 +59,23 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
     }
 
     public void AddSugar() {
-        enteredLevel = Integer.parseInt(sugarLevel.getText().toString());
-        DiaTrackerDB db = new DiaTrackerDB(getActivity());
-        Boolean success = db.createGlucose(enteredLevel);
-        if (success) {
-            sugarLevel.setText("");
-            Toast toast = Toast.makeText(getActivity(), "Level successfully added",Toast.LENGTH_LONG);
-            toast.show();
+        if(!sugarLevel.getText().toString().isEmpty()) {
+            enteredLevel = Integer.parseInt(sugarLevel.getText().toString());
+            DiaTrackerDB db = new DiaTrackerDB(getActivity());
+            Boolean success = db.createGlucose(enteredLevel);
+            if (success) {
+                sugarLevel.setText("");
+                Toast toast = Toast.makeText(getActivity(), "Sugar level successfully added", Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(getActivity(), "There was an error", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            sugarLevel.setBackgroundResource(R.drawable.edit_normal);
         }
         else {
-            Toast toast = Toast.makeText(getActivity(), "There was an error",Toast.LENGTH_LONG);
-            toast.show();
+            sugarLevel.setError("Enter number");
+            sugarLevel.setBackgroundResource(R.drawable.edit_error);
         }
     }
 }

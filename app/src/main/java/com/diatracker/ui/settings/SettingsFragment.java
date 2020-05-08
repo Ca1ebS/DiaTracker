@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.diatracker.DiaTrackerDB;
 import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
-import com.diatracker.ui.insulin.InsulinViewModel;
 
 public class SettingsFragment extends Fragment implements OnClickListener {
 
@@ -80,7 +79,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
     }
 
     private void export(DiaTrackerDB db) {
-        Toast toast = Toast.makeText(getActivity(), "Database exported to device",Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getActivity(), "Database exported to device's downloads",Toast.LENGTH_LONG);
         toast.show();
         DiaTrackerMain.verifyStoragePermissions(getActivity());
         db.exportDB();

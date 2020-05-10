@@ -62,7 +62,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/edit_normal"
         android:ems="10"
-        android:hint="Carbs (grams)"
+        android:hint="Carbohydrates (grams)"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

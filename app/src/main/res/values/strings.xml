@@ -22,4 +22,5 @@
     Are you sure?</string>
     <string name="high_message">Your blood sugar is high, please go see a doctor.</string>
     <string name="low_message">Your blood sugar is low, please go see a doctor.</string>
+    <string name="dietary_message">Your %1$s consumption is %2$s, your doctor has been notified.</string>
 </resources>

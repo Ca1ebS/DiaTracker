@@ -87,6 +87,9 @@ public class DietaryFragment extends Fragment implements OnClickListener {
     public void addIntake() {
         EditText[] edits = {calorie, carbs, sugar};
         boolean error = false;
+        String value = "";
+        String highlow = "";
+
         for(int i=0;i<edits.length;i++) {
             if(edits[i].getText().toString().isEmpty()) {
                 edits[i].setError("Enter number");
@@ -100,25 +103,44 @@ public class DietaryFragment extends Fragment implements OnClickListener {
             enteredCalorie = Integer.parseInt(calorie.getText().toString());
             enteredCarbs = Integer.parseInt(carbs.getText().toString());
             enteredSugar = Integer.parseInt(sugar.getText().toString());
+            if (enteredCalorie > 2500) {
+                value = "calorie";
+                highlow = "high";
+            } else if (enteredCalorie < 1500) {
+                value = "calorie";
+                highlow = "low";
+            } else if (enteredCarbs > 325) {
+                value = "carbohydrate";
+                highlow = "high";
+            } else if (enteredCarbs < 225) {
+                value = "carbohydrate";
+                highlow = "low";
+            } else if (enteredSugar > 45) {
+                value = "sugar";
+                highlow = "high";
+            } else if (enteredSugar < 25) {
+                value = "sugar";
+                highlow = "low";
+            }
 
-            /*if() {
+            if (!value.isEmpty()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                if() builder.setMessage(R.string.).setTitle("");
-                else builder.setMessage(R.string.).setTitle("");
+                String warning = getString(R.string.dietary_message, value, highlow);
+                builder.setMessage(warning).setTitle("Dietary Warning");
 
-                builder.setPositiveButton ("Okay", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            }*/
+            }
 
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
             Boolean success = db.createDiet(enteredCalorie, enteredCarbs, enteredSugar);
             if (success) {
-                try {
+                /*try {
                     SharedPreferences sharedpreferences = getActivity().getSharedPreferences("my_pref", Context.MODE_PRIVATE);
                     String stopDateString = "05/07/2020 10:51:00 PM";
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
@@ -146,7 +168,7 @@ public class DietaryFragment extends Fragment implements OnClickListener {
                     editor.commit();
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 Toast toast = Toast.makeText(getActivity(), "Intake successfully added", Toast.LENGTH_LONG);
                 toast.show();

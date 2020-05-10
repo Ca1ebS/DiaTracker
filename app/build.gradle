@@ -37,4 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.opencsv:opencsv:4.0'
+    implementation files('C:\\Users\\geekc\\AndroidStudioProjects\\DiaTracker\\additionnal.jar')
+    implementation files('C:\\Users\\geekc\\AndroidStudioProjects\\DiaTracker\\activation.jar')
+    implementation files('C:\\Users\\geekc\\AndroidStudioProjects\\DiaTracker\\mail.jar')
 }

@@ -1,8 +1,14 @@
 package com.diatracker.ui.glucose;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.diatracker.DiaTrackerBroadcast;
 import com.diatracker.DiaTrackerDB;
 import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
@@ -86,6 +93,7 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
                 dialog.show();
 
             }
+            scheduleNotification(getNotification("Reminder to check blood sugar levels"), 10000);
 
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
             Boolean success = db.createGlucose(enteredLevel);
@@ -102,5 +110,24 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
             sugarLevel.setError("Enter number");
             sugarLevel.setBackgroundResource(R.drawable.edit_error);
         }
+    }
+
+    private void scheduleNotification(Notification notification, int delay) {
+        Intent notificationIntent = new Intent(getActivity(), DiaTrackerBroadcast.class);
+        notificationIntent.putExtra(DiaTrackerBroadcast.notiId, 1);
+        notificationIntent.putExtra(DiaTrackerBroadcast.noti, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(getActivity());
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.diabetes);
+        return builder.build();
     }
 }

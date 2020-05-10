@@ -3,6 +3,8 @@ package com.diatracker;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Date;
+
 public class DiaTrackerPrefs {
     private SharedPreferences sharedPreferences;
     private static String prefName = "settings";
@@ -35,5 +37,15 @@ public class DiaTrackerPrefs {
             return true;
         else
             return false;
+    }
+
+    public static void setDay(Context context, String day) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putString("day", day);
+        editor.commit();
+    }
+
+    public static String getDay(Context context) {
+        return getPrefs(context).getString("day", "");
     }
 }

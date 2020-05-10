@@ -3,6 +3,7 @@ package com.diatracker.ui.dietary;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +25,11 @@ import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
 import com.diatracker.DiaTrackerPrefs;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class DietaryFragment extends Fragment implements OnClickListener {
 
     private DietaryViewModel dietaryViewModel;
@@ -36,6 +42,8 @@ public class DietaryFragment extends Fragment implements OnClickListener {
     private int enteredCalorie;
     private int enteredSugar;
     private int enteredCarbs;
+
+    private SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yyyy");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +61,7 @@ public class DietaryFragment extends Fragment implements OnClickListener {
         sugar = (EditText) root.findViewById(R.id.editSugar);
         submit.setOnClickListener(this);
         clear.setOnClickListener(this);
+        setEnabled();
 
         dietaryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -138,35 +147,17 @@ public class DietaryFragment extends Fragment implements OnClickListener {
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
             Boolean success = db.createDiet(enteredCalorie, enteredCarbs, enteredSugar);
             if (success) {
-                /*try {
-                    SharedPreferences sharedpreferences = getActivity().getSharedPreferences("my_pref", Context.MODE_PRIVATE);
-                    String stopDateString = "05/07/2020 10:51:00 PM";
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-                    Date stopDate = dateFormat.parse(stopDateString);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    Date currentTime = Calendar.getInstance().getTime();
+                Date stopDate = new Date();
+                Calendar c = Calendar.getInstance();
+                c.setTime(stopDate);
+                c.add(Calendar.DATE, 1);
+                stopDate = c.getTime();
+                String stopDateStr = dateF.format(stopDate);
 
-                    if (sharedpreferences.getString("Date", "").isEmpty()) {
-                        editor.putString("Date", currentTime.toString());
-                        for(int i=0;i<edits.length;i++) {
-                            edits[i].setText("");
-                            edits[i].setEnabled(false);
-                            edits[i].setBackgroundResource(R.color.colorGray);
-                        }
-                        submit.setClickable(false);
-                    }
-                    if (currentTime.after(stopDate)) {
-                        for(int i=0;i<edits.length;i++) {
-                            edits[i].setText("");
-                            edits[i].setEnabled(true);
-                            edits[i].setBackgroundResource(R.drawable.edit_normal);
-                        }
-                        submit.setClickable(true);
-                    }
-                    editor.commit();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }*/
+                if (DiaTrackerPrefs.getDay(getActivity()).isEmpty()) {
+                    DiaTrackerPrefs.setDay(getActivity(), stopDateStr);
+                    setEnabled();
+                }
 
                 Toast toast = Toast.makeText(getActivity(), "Intake successfully added", Toast.LENGTH_LONG);
                 toast.show();
@@ -177,6 +168,36 @@ public class DietaryFragment extends Fragment implements OnClickListener {
         }
         else {
             return;
+        }
+    }
+
+    private void setEnabled() {
+        EditText[] edits = {calorie, carbs, sugar};
+        String prefDateStr = DiaTrackerPrefs.getDay(getActivity());
+        try {
+            Date prefDate = dateF.parse(prefDateStr);
+            Date nowDate = new Date();
+            Log.i("test", DiaTrackerPrefs.getDay(getActivity()));
+            if (DiaTrackerPrefs.getDay(getActivity()).isEmpty() || nowDate.compareTo(prefDate) >= 0) {
+                for (int i = 0; i < edits.length; i++) {
+                    edits[i].setText("");
+                    edits[i].setEnabled(true);
+                    edits[i].setBackgroundResource(R.drawable.edit_normal);
+                }
+                submit.setClickable(true);
+                if(prefDate.compareTo(nowDate) >= 0)
+                    DiaTrackerPrefs.setDay(getActivity(), "");
+            } else {
+                for (int i = 0; i < edits.length; i++) {
+                    edits[i].setText("");
+                    edits[i].setEnabled(false);
+                    edits[i].setBackgroundResource(R.color.colorGray);
+                }
+                submit.setClickable(false);
+            }
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }

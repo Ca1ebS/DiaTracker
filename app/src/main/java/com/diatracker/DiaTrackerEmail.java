@@ -29,7 +29,6 @@ public class DiaTrackerEmail {
     MimeMessage emailMessage;
 
     public DiaTrackerEmail() {
-
     }
 
     public DiaTrackerEmail(String fromEmail, String fromPassword,

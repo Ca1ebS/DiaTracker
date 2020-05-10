@@ -96,7 +96,7 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
                 dialog.show();
 
             }
-            scheduleNotification(getNotification("Reminder to check blood sugar levels"), 10000);
+            scheduleNotification(getNotification("Reminder to check blood sugar levels"), 14400000); //4 hours
 
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
             Boolean success = db.createGlucose(enteredLevel);

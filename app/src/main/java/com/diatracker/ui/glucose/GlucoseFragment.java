@@ -3,6 +3,8 @@ package com.diatracker.ui.glucose;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -124,7 +127,16 @@ public class GlucoseFragment extends Fragment implements OnClickListener {
     }
 
     private Notification getNotification(String content) {
-        Notification.Builder builder = new Notification.Builder(getActivity());
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        String CHANNEL_ID = "dia_channel";
+        CharSequence name = "diachannel";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription("DiaTracker channel");
+        channel.enableVibration(true);
+        channel.setShowBadge(false);
+        notificationManager.createNotificationChannel(channel);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), CHANNEL_ID);
         builder.setContentTitle("Scheduled Notification");
         builder.setContentText(content);
         builder.setSmallIcon(R.drawable.diabetes);

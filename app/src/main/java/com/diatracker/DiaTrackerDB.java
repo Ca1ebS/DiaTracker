@@ -1,23 +1,14 @@
 package com.diatracker;
-import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-
 import android.os.Environment;
 import android.util.Log;
 import android.content.Context;
 import android.database.Cursor;
-
-import androidx.core.app.ActivityCompat;
-
 import com.opencsv.CSVWriter;
 
 public class DiaTrackerDB {

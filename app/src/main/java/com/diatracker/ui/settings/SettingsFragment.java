@@ -1,9 +1,7 @@
 package com.diatracker.ui.settings;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.diatracker.DiaTrackerDB;
 import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
-import com.diatracker.SettingsPrefs;
+import com.diatracker.DiaTrackerPrefs;
 
 public class SettingsFragment extends Fragment implements OnClickListener {
 
@@ -54,8 +52,8 @@ public class SettingsFragment extends Fragment implements OnClickListener {
             }
         });
 
-        name.setText(SettingsPrefs.getName(getActivity()));
-        email.setText(SettingsPrefs.getEmail(getActivity()));
+        name.setText(DiaTrackerPrefs.getName(getActivity()));
+        email.setText(DiaTrackerPrefs.getEmail(getActivity()));
         return root;
     }
 
@@ -103,7 +101,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 
     private void saveInfo() {
         if(!name.getText().toString().isEmpty() && !email.getText().toString().isEmpty()) {
-            SettingsPrefs.setPrefs(getActivity(), name.getText().toString(), email.getText().toString());
+            DiaTrackerPrefs.setPrefs(getActivity(), name.getText().toString(), email.getText().toString());
         }
     }
 }

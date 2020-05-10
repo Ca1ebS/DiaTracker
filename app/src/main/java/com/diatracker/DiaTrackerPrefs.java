@@ -3,11 +3,11 @@ package com.diatracker;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SettingsPrefs {
+public class DiaTrackerPrefs {
     private SharedPreferences sharedPreferences;
     private static String prefName = "settings";
 
-    public SettingsPrefs() {
+    public DiaTrackerPrefs() {
     }
 
     private static SharedPreferences getPrefs(Context context) {

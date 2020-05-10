@@ -1,11 +1,8 @@
 package com.diatracker.ui.dietary;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,18 +20,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.diatracker.Connection;
 import com.diatracker.DiaTrackerDB;
-import com.diatracker.DiaTrackerEmail;
 import com.diatracker.DiaTrackerMain;
 import com.diatracker.R;
-import com.diatracker.SettingsPrefs;
-import com.diatracker.ui.settings.SettingsFragment;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.diatracker.DiaTrackerPrefs;
 
 public class DietaryFragment extends Fragment implements OnClickListener {
 
@@ -133,7 +121,7 @@ public class DietaryFragment extends Fragment implements OnClickListener {
             if (!value.isEmpty()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 String warning = getString(R.string.dietary_message, value, highlow);
-                String email = getString(R.string.dietary_email, SettingsPrefs.getName(getActivity()), value, highlow);
+                String email = getString(R.string.dietary_email, DiaTrackerPrefs.getName(getActivity()), value, highlow);
                 builder.setMessage(warning).setTitle("Dietary Warning");
 
                 builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -143,8 +131,8 @@ public class DietaryFragment extends Fragment implements OnClickListener {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                if(!SettingsPrefs.isEmpty(getActivity()))
-                    new Connection(getActivity()).execute(SettingsPrefs.getEmail(getActivity()), email);
+                if(!DiaTrackerPrefs.isEmpty(getActivity()))
+                    new Connection(getActivity()).execute(DiaTrackerPrefs.getEmail(getActivity()), email);
             }
 
             DiaTrackerDB db = new DiaTrackerDB(getActivity());
